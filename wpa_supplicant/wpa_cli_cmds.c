@@ -489,7 +489,7 @@ static int wpa_ctrl_command_sta(struct wpa_ctrl *ctrl, const char *cmd,
 	size_t len;
 	int ret;
 
-	if (ctrl == NULL) {
+	if (ctrl_conn == NULL) {
 		wpa_printf(MSG_INFO, "Not connected to hostapd - command dropped.\n");
 		return -1;
 	}
