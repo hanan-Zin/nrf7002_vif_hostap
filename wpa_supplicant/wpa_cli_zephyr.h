@@ -29,18 +29,26 @@ struct status_resp {
 /* Public APIs */
 int zephyr_wpa_ctrl_init(void *wpa_s);
 void zephyr_wpa_ctrl_deinit(void *wpa_s);
-int zephyr_wpa_ctrl_zephyr_cmd(int argc, const char *argv[]);
-int zephyr_wpa_cli_cmd_v(const char *fmt, ...);
-int zephyr_wpa_cli_cmd_resp(const char *cmd, char *resp);
 
-int z_wpa_ctrl_add_network(struct add_network_resp *resp);
-int z_wpa_ctrl_signal_poll(struct signal_poll_resp *resp);
-int z_wpa_ctrl_status(struct status_resp *resp);
-
+ /* 
+  * Pass wpa_ctrl from the wpa_s.
+  * Since there are 2 wpa_s, therefore
+  * global ctrl_conn removed.
+  * Each wpa_s will pass its own wpa_ctrl 
+  */
+int zephyr_wpa_ctrl_zephyr_cmd(struct wpa_ctrl *ctrl, int argc, const char *argv[]);
+int zephyr_wpa_cli_cmd_v(struct wpa_ctrl *ctrl, const char *fmt, ...);
+int zephyr_wpa_cli_cmd_resp(struct wpa_ctrl *ctrl, const char *cmd, char *resp);
+ 
+int z_wpa_ctrl_add_network(struct wpa_ctrl *ctrl, struct add_network_resp *resp);
+int z_wpa_ctrl_signal_poll(struct wpa_ctrl *ctrl, struct signal_poll_resp *resp);
+int z_wpa_ctrl_status(struct wpa_ctrl *ctrl, struct status_resp *resp);
+ 
 /* Global control interface */
 int zephyr_global_wpa_ctrl_init(void);
 void zephyr_global_wpa_ctrl_deinit(void);
 int zephyr_wpa_global_ctrl_zephyr_cmd(int argc, const char *argv[]);
 int zephyr_wpa_cli_global_cmd_v(const char *fmt, ...);
-
+ 
 #endif /* __WPA_CLI_ZEPHYR_H_ */
+ 
