@@ -12,8 +12,6 @@
 #ifdef  __cplusplus
 extern "C" {
 #endif
-/* Control connection attached to each wpa_s */
-//extern struct wpa_ctrl *ctrl_conn;
 extern char *ifname_prefix;
 
 /* wpa_supplicant control interface - fixed message prefixes */

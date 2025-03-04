@@ -29,13 +29,6 @@ struct status_resp {
 /* Public APIs */
 int zephyr_wpa_ctrl_init(void *wpa_s);
 void zephyr_wpa_ctrl_deinit(void *wpa_s);
-
- /* 
-  * Pass wpa_ctrl from the wpa_s.
-  * Since there are 2 wpa_s, therefore
-  * global ctrl_conn removed.
-  * Each wpa_s will pass its own wpa_ctrl 
-  */
 int zephyr_wpa_ctrl_zephyr_cmd(struct wpa_ctrl *ctrl, int argc, const char *argv[]);
 int zephyr_wpa_cli_cmd_v(struct wpa_ctrl *ctrl, const char *fmt, ...);
 int zephyr_wpa_cli_cmd_resp(struct wpa_ctrl *ctrl, const char *cmd, char *resp);

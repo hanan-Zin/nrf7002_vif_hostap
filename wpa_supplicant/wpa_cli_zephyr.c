@@ -30,12 +30,6 @@
 #define DEFAULT_IFNAME "wlan0"
 #define MAX_ARGS 32
 
-/* 
- * Global ctrl_conn removed. 
- * Each wpa_s will have its own wpa_ctrl
- */
-//struct wpa_ctrl *ctrl_conn;
-//struct wpa_ctrl *mon_conn;
 struct wpa_ctrl *global_ctrl_conn;
 char *ifname_prefix = NULL;
 extern struct wpa_global *global;
@@ -471,7 +465,7 @@ int z_wpa_ctrl_signal_poll(struct wpa_ctrl *ctrl, struct signal_poll_resp *resp)
 		return ret;
 	}
 
-	ret = sscanf((const char *)buf, "RSSI=%d", &resp->rssi);
+	ret = sscanf((const char *)buf, "RSSI=%d\nLINKSPEED=%d\n", &resp->rssi, &resp->current_txrate);
 	if (ret < 0) {
 		wpa_printf(MSG_INFO, "Failed to parse SIGNAL_POLL response: %s",
 			strerror(errno));
